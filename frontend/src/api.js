@@ -1,7 +1,10 @@
 // src/api.js
-const API_BASE_URL = 'http://localhost:5000/api',
-'https://tech-sales-and-services-twmw.onrender.com/api';
+// src/api.js
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://tech-sales-and-services-twmw.onrender.com/api'
+  : 'http://localhost:5000/api';
 
+// Rest of the code...
 // Check server health
 export const checkServerHealth = async () => {
     try {
@@ -26,7 +29,6 @@ export const registerUser = async (userData) => {
         
         const result = await response.json();
         
-        // Check if response was successful
         if (!response.ok) {
             throw new Error(result.message || 'Registration failed');
         }
@@ -41,8 +43,6 @@ export const registerUser = async (userData) => {
 // Login user
 export const loginUser = async (credentials) => {
     try {
-        console.log('Sending login request:', credentials); // Debug
-        
         const response = await fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
             headers: {
@@ -51,37 +51,24 @@ export const loginUser = async (credentials) => {
             body: JSON.stringify(credentials),
         });
         
-        console.log('Response status:', response.status); // Debug
-        
         const result = await response.json();
-        console.log('Response data:', result); // Debug
         
-        // Check if response was successful
         if (!response.ok) {
-            throw new Error(result.message || `Login failed with status ${response.status}`);
+            throw new Error(result.message || 'Login failed');
         }
         
         return result;
     } catch (error) {
-        console.error('Login API error:', error);
+        console.error('Login error:', error);
         throw error;
     }
 };
-// Add these functions to your api.js
 
 // Get user profile
-// Update the getUserProfile function in api.js
 export const getUserProfile = async (userId) => {
     try {
-        console.log('Fetching profile for user ID:', userId);
-        
-        // Try both GET and POST methods
         const response = await fetch(`${API_BASE_URL}/user/profile?userId=${userId}`);
-        
-        console.log('Profile response status:', response.status);
-        
         const result = await response.json();
-        console.log('Profile response data:', result);
         
         if (!response.ok) {
             throw new Error(result.message || 'Failed to fetch profile');
@@ -90,29 +77,10 @@ export const getUserProfile = async (userId) => {
         return result;
     } catch (error) {
         console.error('Profile fetch error:', error);
-        
-        // Fallback: try POST request
-        try {
-            console.log('Trying POST request as fallback...');
-            const response = await fetch(`${API_BASE_URL}/user/profile`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userId }),
-            });
-            
-            const result = await response.json();
-            if (response.ok) {
-                return result;
-            }
-        } catch (postError) {
-            console.error('POST fallback also failed:', postError);
-        }
-        
         throw error;
     }
 };
+
 // Update user profile
 export const updateUserProfile = async (userId, userData) => {
     try {
@@ -174,6 +142,39 @@ export const getUserOrders = async (userId) => {
         return result;
     } catch (error) {
         console.error('Orders fetch error:', error);
+        throw error;
+    }
+};
+
+// Get all products
+export const getAllProducts = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/products`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error;
+    }
+};
+
+// Get products by category
+export const getProductsByCategory = async (category) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/products/${category}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching category products:', error);
+        throw error;
+    }
+};
+
+// Get single product
+export const getProductById = async (id) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/product/${id}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching product:', error);
         throw error;
     }
 };
