@@ -1,0 +1,386 @@
+/* src/css/Profile.css */
+.profile-container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.profile-header {
+    background: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.profile-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.profile-nav button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.profile-nav button:hover {
+    background: #f0f0f0;
+}
+
+.profile-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 2rem auto;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.profile-sidebar {
+    width: 250px;
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-info {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1.5rem;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+.user-info h3 {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.user-info p {
+    color: #666;
+    margin: 0;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-nav button {
+    background: none;
+    border: none;
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.sidebar-nav button:hover {
+    background: #f5f5f5;
+}
+
+.sidebar-nav button.active {
+    background: #4CAF50;
+    color: white;
+}
+
+.profile-main {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.edit-btn, .save-btn, .cancel-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+}
+
+.edit-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.save-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.cancel-btn {
+    background: #f5f5f5;
+    color: #333;
+    margin-left: 1rem;
+}
+
+.profile-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.profile-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.detail-item .label {
+    width: 150px;
+    font-weight: 500;
+    color: #333;
+}
+
+.detail-item .value {
+    color: #666;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.order-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1.5rem;
+    background: #f9f9f9;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.status {
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status.delivered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.processing {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status.shipped {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.view-details {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 3rem;
+}
+
+.empty-orders button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.password-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.address-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.add-address-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.profile-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+/* Add to Profile.css */
+.profile-error {
+    text-align: center;
+    padding: 4rem;
+    background: #f9f9f9;
+    min-height: 100vh;
+}
+
+.profile-error h2 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.profile-error p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.profile-error-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.profile-error-buttons .login-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-error-buttons .home-btn {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.detail-item.note {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.detail-item.note .label {
+    color: #856404;
+}
+
+.detail-item.note .value {
+    color: #856404;
+    font-style: italic;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.profile-error {
+    text-align: center;
+    padding: 4rem;
+}
+
+.profile-error button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}

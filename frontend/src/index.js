@@ -6,7 +6,11 @@ import Home from './Home';
 import Detail from './Detail';
 import Login from './Login';
 import Reg from './Reg';
-import Product from './Product';
+import Profile from './Profile';
+
+import List from './List';
+import Order from './Order';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,11 +19,12 @@ root.render(
     <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='Home' element={<Home/>}/>
+        <Route path='List' element={<List/>}/>
             <Route path='Detail' element={<Detail/>}/>
                 <Route path='Login' element={<Login/>}/>
                     <Route path='Reg' element={<Reg/>}/>
-                        <Route path='Product' element={<Product/>}/>
-
+                  <Route path='/profile' element={<Profile/>}/>
+<Route path='/order' element={<Order/>}/>
 
     </Routes>
 
