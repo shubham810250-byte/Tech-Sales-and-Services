@@ -129,10 +129,44 @@ export const changePassword = async (userId, passwordData) => {
     }
 };
 
+// Add these to your api.js
+
+// Create order
+export const createOrder = async (orderData) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+        
+        // Check content type
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.error('Non-JSON response:', text.substring(0, 100));
+            throw new Error('Server returned non-JSON response');
+        }
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || 'Failed to create order');
+        }
+        
+        return result;
+    } catch (error) {
+        console.error('Create order error:', error);
+        throw error;
+    }
+};
+
 // Get user orders
 export const getUserOrders = async (userId) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/user/orders/${userId}`);
+        const response = await fetch(`${API_BASE_URL}/orders/user/${userId}`);
         const result = await response.json();
         
         if (!response.ok) {
@@ -141,11 +175,27 @@ export const getUserOrders = async (userId) => {
         
         return result;
     } catch (error) {
-        console.error('Orders fetch error:', error);
+        console.error('Get orders error:', error);
         throw error;
     }
 };
 
+// Get order by ID
+export const getOrderById = async (orderId) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || 'Failed to fetch order');
+        }
+        
+        return result;
+    } catch (error) {
+        console.error('Get order error:', error);
+        throw error;
+    }
+};
 // Get all products
 export const getAllProducts = async () => {
     try {

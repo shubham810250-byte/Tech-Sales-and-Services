@@ -517,6 +517,159 @@ app.get('/api/user/orders/:userId', async (req, res) => {
         });
     }
 });
+// Add these routes to your server.js after user routes
+
+// Order Schema
+const OrderSchema = new mongoose.Schema({
+    orderId: { type: String, required: true, unique: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    customer: {
+        fullName: String,
+        email: String,
+        phone: String,
+        address: String,
+        city: String,
+        state: String,
+        pincode: String
+    },
+    products: [{
+        name: String,
+        price: Number,
+        image: String,
+        category: String,
+        brand: String,
+        warranty: String,
+        quantity: Number
+    }],
+    paymentMethod: String,
+    subtotal: Number,
+    delivery: Number,
+    tax: Number,
+    total: Number,
+    status: { type: String, default: 'Confirmed' },
+    createdAt: { type: Date, default: Date.now },
+    estimatedDelivery: String
+});
+
+const Order = mongoose.model('Order', OrderSchema);
+
+// 8. CREATE ORDER ROUTE
+app.post('/api/orders', async (req, res) => {
+    try {
+        const { userId, customer, products, paymentMethod, subtotal, delivery, tax, total, estimatedDelivery } = req.body;
+        
+        // Generate unique order ID
+        const orderId = 'ORD' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 1000);
+        
+        const order = new Order({
+            orderId,
+            userId,
+            customer,
+            products,
+            paymentMethod,
+            subtotal,
+            delivery,
+            tax,
+            total,
+            estimatedDelivery,
+            status: 'Confirmed'
+        });
+        
+        await order.save();
+        
+        console.log(`✅ Order created: ${orderId}`);
+        
+        res.status(201).json({
+            success: true,
+            message: 'Order placed successfully!',
+            order: {
+                id: order._id,
+                orderId: order.orderId,
+                customer: order.customer,
+                products: order.products,
+                total: order.total,
+                status: order.status,
+                date: order.createdAt,
+                estimatedDelivery: order.estimatedDelivery
+            }
+        });
+        
+    } catch (error) {
+        console.error('❌ Order creation error:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating order',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
+
+// 9. GET USER ORDERS
+app.get('/api/orders/user/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        
+        // Check if DB is connected
+        if (!isDbConnected) {
+            return res.status(503).json({
+                success: false,
+                message: 'Database is not available.'
+            });
+        }
+        
+        const orders = await Order.find({ userId: userId }).sort({ createdAt: -1 });
+        
+        res.json({
+            success: true,
+            orders: orders
+        });
+        
+    } catch (error) {
+        console.error('❌ Orders fetch error:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching orders',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
+
+// 10. GET ORDER BY ID
+app.get('/api/orders/:orderId', async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        
+        // Check if DB is connected
+        if (!isDbConnected) {
+            return res.status(503).json({
+                success: false,
+                message: 'Database is not available.'
+            });
+        }
+        
+        const order = await Order.findOne({ orderId: orderId });
+        
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: 'Order not found'
+            });
+        }
+        
+        res.json({
+            success: true,
+            order: order
+        });
+        
+    } catch (error) {
+        console.error('❌ Order fetch error:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching order',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
 
 // Test endpoint
 app.get('/api/test', (req, res) => {
